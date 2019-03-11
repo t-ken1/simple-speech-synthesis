@@ -151,3 +151,10 @@ class NetworkConfig(BaseConfig):
 
     def _get_type(self):
         return 'network'
+
+    def _field_init(self):
+        self.input_dim = {}
+        self.output_dim = {}
+        self.hidden_dim = {}
+        self.num_layers = {}
+        self.bidirectional = {}
