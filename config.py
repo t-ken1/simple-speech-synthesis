@@ -164,7 +164,7 @@ class ConfigLoader(object):
 
     def __init__(self, path):
         self.config_parser = configparser.ConfigParser()
-        self.config_parser.read(file_path)
+        self.config_parser.read(path)
 
         self.analysis_config = AnalysisConfig(self.config_parser)
         self.feature_config = FeatureConfig(self.config_parser)
