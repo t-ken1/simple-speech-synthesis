@@ -121,7 +121,7 @@ class AnalysisConfig(BaseConfig):
 
 class TrainConfig(BaseConfig):
 
-    def __init__(self, config_parser, kind):
+    def __init__(self, config_parser):
         super().__init__(config_parser)
         
         self.num_epoch = self.to_int(self.get_value('num_epoch'))
