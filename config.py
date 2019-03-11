@@ -158,3 +158,27 @@ class NetworkConfig(BaseConfig):
         self.hidden_dim = {}
         self.num_layers = {}
         self.bidirectional = {}
+
+
+class ConfigLoader(object):
+
+    def __init__(self, path):
+        self.config_parser = configparser.ConfigParser()
+        self.config_parser.read(file_path)
+
+        self.analysis_config = AnalysisConfig(self.config_parser)
+        self.feature_config = FeatureConfig(self.config_parser)
+        self.network_config = NetworkConfig(self.config_parser)
+        self.train_config = TrainConfig(self.config_parser)
+
+    def get_analysis_config(self):
+        return self.analysis_config
+
+    def get_feature_config(self):
+        return self.feature_config
+
+    def get_netowrk_config(self):
+        return self.network_config
+
+    def get_train_config(self):
+        return self.train_config
