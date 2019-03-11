@@ -136,7 +136,7 @@ class NetworkConfig(BaseConfig):
 
     def __init__(self, config_parser):
         super().__init__(config_parser)
-        self.field_init()
+        self._field_init()
 
         network_types = ['acoustic', 'duration']
         feat_conf = FeatureConfig(config_parser)
