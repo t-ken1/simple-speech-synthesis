@@ -93,3 +93,35 @@ class FeatureConfig(BaseConfig):
 
     def get_indices(self):
         return self.feat_index
+
+
+class AnalysisConfig(BaseConfig):
+
+    def __init__(self, config_parser):
+        super().__init__(config_parser)
+
+        self.sampling_rate = self.to_int(self.get_value('sampling_rate'))
+        self.frame_period = self.to_int(self.get_value('frame_period'))
+        self.has_delta = self.to_bool(self.get_value('has_delta'))
+
+        if self.has_delta:
+            self.window = [
+                (0, 0, np.array([1.0])),
+                (1, 1, np.array([-0.5, 0.0, 0.5])),
+                (1, 1, np.array([1.0, -2.0, 1.0]))
+            ]
+        else:
+            self.window = [(0, 0, np.array([1.0]))]
+
+        self.fft_length = pyworld.get_cheaptrick_fft_size(
+            self.sampling_rate
+        )
+        self.alpha = pysptk.util.mcepalpha(self.sampling_rate)
+        self.hop_length = int(
+            self.sampling_rate * 0.001 * self.frame_period
+        ) # require [Hz] -> [kHz]
+
+    def _get_type(self):
+        return 'analysis'
+
+    
