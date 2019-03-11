@@ -79,17 +79,11 @@ class FeatureConfig(BaseConfig):
             result += self.feat_dim[feat]
         return result
 
-    def get_acoustic_dim(self):
-        return self.parm_dim['acoustic']
+    def get_parm_dim(self, arg):
+        return self.parm_dim[arg]
 
-    def get_duration_dim(self):
-        return self.parm_dim['duration']
-
-    def get_acoustic_linguistic_dim(self):
-        return self.linguistic_dim['acoustic']
-
-    def get_duration_linguistic_dim(self):
-        return self.linguistic_dim['duration']
+    def get_linguistic_dim(self, arg):
+        return self.linguistic_dim[arg]
 
     def get_indices(self):
         return self.feat_index
