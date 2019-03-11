@@ -177,7 +177,7 @@ class ConfigLoader(object):
     def get_feature_config(self):
         return self.feature_config
 
-    def get_netowrk_config(self):
+    def get_network_config(self):
         return self.network_config
 
     def get_train_config(self):
