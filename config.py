@@ -8,9 +8,8 @@ import pyworld
 
 class BaseConfig(metaclass=ABCMeta):
 
-    def __init__(self, config_parser, config_type):
+    def __init__(self, config_parser):
         self.config_parser = config_parser
-        self.config_type = config_type
 
     def _to(self, str_value, function):
         if not isinstance(str_value, str):
