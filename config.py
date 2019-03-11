@@ -124,4 +124,17 @@ class AnalysisConfig(BaseConfig):
     def _get_type(self):
         return 'analysis'
 
-    
+
+class TrainConfig(ConfigSetter):
+
+    def __init__(self, config_parser, kind):
+        super().__init__(config_parser)
+        
+        self.num_epoch = self.to_int(self.get_value('num_epoch'))
+        self.batch_size = self.to_int(self.get_value('batch_size'))
+        self.learning_rate = self.to_float(self.get_value('learning_rate'))
+
+    def _get_type(self):
+        return 'train'
+
+
