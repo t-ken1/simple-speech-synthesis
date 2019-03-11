@@ -5,7 +5,7 @@ from torch.utils.data import Dataset
 class SpeechDataset(Dataset):
 
     def __init__(self, x_paths, t_paths, x_dim=262, t_dim=127,
-                 max_len=5000, pad_value):
+                 max_len=5000, pad_value=9999):
         super().__init__()
 
         self.x_paths = x_paths
