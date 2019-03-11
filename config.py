@@ -121,7 +121,7 @@ class AnalysisConfig(BaseConfig):
 
 class TrainConfig(BaseConfig):
 
-    def __init__(self, config_parser, kind):
+    def __init__(self, config_parser):
         super().__init__(config_parser)
         
         self.num_epoch = self.to_int(self.get_value('num_epoch'))
@@ -136,15 +136,15 @@ class NetworkConfig(BaseConfig):
 
     def __init__(self, config_parser):
         super().__init__(config_parser)
-        self.field_init()
+        self._field_init()
 
         network_types = ['acoustic', 'duration']
         feat_conf = FeatureConfig(config_parser)
         for type_ in network_types:
             self.input_dim[type_] = feat_conf.get_linguistic_dim(type_)
             self.output_dim[type_] = feat_conf.get_parm_dim(type_)
-            self.hidden_dim[type_] = self.to_int(get_value('hidden_dim'))
-            self.num_layers[type_] = self.to_int(get_value('num_layers'))
+            self.hidden_dim[type_] = self.to_int(self.get_value('hidden_dim'))
+            self.num_layers[type_] = self.to_int(self.get_value('num_layers'))
             self.bidirectional[type_] = self.to_bool(
                 self.get_value('bidirectional')
             )
