@@ -125,7 +125,7 @@ class AnalysisConfig(BaseConfig):
         return 'analysis'
 
 
-class TrainConfig(ConfigSetter):
+class TrainConfig(BaseConfig):
 
     def __init__(self, config_parser, kind):
         super().__init__(config_parser)
