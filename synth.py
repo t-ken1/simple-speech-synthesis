@@ -93,7 +93,7 @@ for type_ in types:
     print('--- Training for %s model ---' % (type_))
     trainer = Trainer(model[type_], optimizer[type_],
                       config.get_train_config(), device=device)
-    trainer.train(dataset[type_], criterion)
+    trainer.train(dataset[type_], criterion, print_every=10)
     print()
 
 
