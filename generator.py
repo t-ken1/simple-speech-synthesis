@@ -44,6 +44,7 @@ class ParameterGenerator(object):
 
     def get_acoustic_parameter(self, label):
         self.acoustic_model.eval()
+        self.acoustic_model.to(self.device)
         sil_index = label.silence_frame_indices()
         subphone_feat = self.config.subphone_feature
 
