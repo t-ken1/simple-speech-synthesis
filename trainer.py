@@ -16,7 +16,7 @@ class Trainer(object):
         self.device = device
 
     def train(self, dataset, criterion, print_every=2):
-        loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+        loader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         self.model.train()
 
         start_time = time.time()
