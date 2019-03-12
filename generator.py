@@ -105,7 +105,7 @@ class WaveGenerator(object):
 
     def _lf0_to_f0(self, lf0, vuv, threshold=0.5):
         f0 = lf0.copy()
-        fp[vuv < threshold] = 0
+        f0[vuv < threshold] = 0
         f0[np.nonzero(f0)] = np.exp(f0[np.nonzero(f0)])
 
         return f0
