@@ -90,15 +90,17 @@ for type_ in types:
 # ---------- Model Training ----------
 
 for type_ in types:
-    print('\n--- Training for %s model ---' % (type_))
+    print('--- Training for %s model ---' % (type_))
     trainer = Trainer(model[type_], optimizer[type_],
                       config.get_train_config(), device=device)
     trainer.train(dataset[type_], criterion)
+    print()
 
 
 # ---------- Synthesize ----------
 
 synth_labels = glob(join(synth_label_dir, '*.lab'))
+parm_var = get_var(dataset['acoustic'])
 
 parameter_generator = ParameterGenerator(model['duration'],
                                          model['acoustic'],
@@ -109,3 +111,4 @@ wave_generator = WaveGenerator(synth_labels, out_dir,
                                parameter_generator,
                                config.get_feature_config(),
                                config.get_analysis_config())
+wave_generator.generate(parm_var)
