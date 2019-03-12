@@ -5,6 +5,7 @@ import numpy as np
 import torch
 import pysptk
 import pyworld
+from nnmnkwii import paramgen
 from nnmnkwii.io import hts
 from nnmnkwii.frontend.merlin import linguistic_features
 from nnmnkwii.preprocessing import trim_zeros_frames
