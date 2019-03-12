@@ -101,6 +101,13 @@ class WaveGenerator(object):
             with open(join(self.out_dir, file_id + '.wav'), 'wb') as f:
                 f.write(Audio(generated, rate=config.sampling_rate).data)
 
+    def _lf0_to_f0(self, lf0, vuv, threshold=0.5):
+        f0 = lf0.copy()
+        fp[vuv < threshold] = 0
+        f0[np.nonzero(f0)] = np.exp(f0[np.nonzero(f0)])
+
+        return f0
+
     def _generate_parameters(self, path, var):
         seq = self.parameter_generator.generate(path)
         seq = trim_zeros_frames(seq)
