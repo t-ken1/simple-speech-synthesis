@@ -37,6 +37,9 @@ class Trainer(object):
                 t_hat = self.model(sorted_x, sorted_l)
                 loss = criterion(t_hat, sorted_t)
 
+                loss.backward()
+                self.optimizer.step()
+
                 running_loss += loss.item()
                 loss_count += 1
 
