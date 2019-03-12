@@ -95,7 +95,7 @@ class WaveGenerator(object):
                                              config.sampling_rate,
                                              config.fft_length)
             f0 = self._lf0_to_f0(lf0, vuv)
-            generated = pyworld.syntheisze(f0.flatten().astype(np.float64),
+            generated = pyworld.synthesize(f0.flatten().astype(np.float64),
                                            sp.astype(np.float64),
                                            ap.astype(np.float64),
                                            config.sampling_rate,
