@@ -88,7 +88,7 @@ class WaveGenerator(object):
             mgc, lf0, vuv, bap = self._generate_parameters(path, parm_var)
 
             if do_postfilter:
-                mgc = merlin_postfilter(mgc, config.alpha)
+                mgc = merlin_post_filter(mgc, config.alpha)
 
             sp = pysptk.mc2sp(mgc, fftlen=config.fft_length, alpha=config.alpha)
             ap = pyworld.decode_aperiodicity(bap.astype(np.float64),
