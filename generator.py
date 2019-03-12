@@ -85,6 +85,7 @@ class WaveGenerator(object):
 
         for path in self.paths:
             file_id = splitext(basename(path))[0]
+            print('Synthesizing %s ... ' % (file_id), end='')
             mgc, lf0, vuv, bap = self._generate_parameters(path, parm_var)
 
             if do_postfilter:
@@ -102,6 +103,7 @@ class WaveGenerator(object):
                                            config.frame_period)
             with open(join(self.out_dir, file_id + '.wav'), 'wb') as f:
                 f.write(Audio(generated, rate=config.sampling_rate).data)
+            print('done!')
 
     def _lf0_to_f0(self, lf0, vuv, threshold=0.5):
         f0 = lf0.copy()
