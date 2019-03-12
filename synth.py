@@ -99,6 +99,8 @@ for type_ in types:
 
 # ---------- Synthesize ----------
 
+print('--- Synthesize ---')
+
 synth_labels = glob(join(synth_label_dir, '*.lab'))
 parm_var = get_var(dataset['acoustic'])
 
