@@ -11,10 +11,17 @@ class SimpleRNN(nn.Module):
 
         self.num_direction = 2 if bidirectional else 1
 
-        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc1 = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU()
+        )
         self.rnn = nn.LSTM(hidden_dim, hidden_dim, num_layers,
                            bidirectional=bidirectional, batch_first=True)
-        self.fc2 = nn.Linear(self.num_direction * hidden_dim, output_dim)
+        self.fc2 = nn.Sequential(
+            nn.Linear(self.num_direction * hidden_dim, output_dim * 2),
+            nn.ReLU(),
+            nn.Linear(output_dim * 2, output_dim)
+        )
 
     def forward(self, sequence, lengths, *, hidden=None, pad_value=9999):
         output = self.fc1(sequence)
