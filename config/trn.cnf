@@ -14,16 +14,17 @@ acoustic_linguistic_dim = 610
 duration_linguistic_dim = 606
 
 subphone_feat = coarse_coding
+pad_value = 9999
 
 
 [network]
-hidden_dim = 1024
+hidden_dim = 512
 num_layers = 2
 bidirectional = True
 
 
 [train]
-num_epoch = 100
+num_epoch = 150
 batch_size = 20
 learning_rate = 0.001
 

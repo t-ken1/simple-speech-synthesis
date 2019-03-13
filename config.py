@@ -58,6 +58,7 @@ class FeatureConfig(BaseConfig):
         self.parm_dim['acoustic'] = self._get_acoustic_dim()
         self.parm_dim['duration'] = 1
         self.subphone_feature = self.get_value('subphone_feat')
+        self.padding_value = self.to_float(self.get_value('pad_value'))
 
         self.feat_index['mgc'] = 0
         self.feat_index['lf0'] = self.feat_index['mgc'] + self.feat_dim['mgc']

@@ -4,7 +4,7 @@ from glob import glob
 
 import torch
 from torch.utils.data import DataLoader
-from torch.optim import Adamax
+from adabound import AdaBound
 
 from config import ConfigLoader
 from model import SimpleRNN
@@ -82,7 +82,7 @@ criterion = torch.nn.MSELoss()
 optimizer = {}
 
 for type_ in types:
-    optimizer[type_] = Adamax(model[type_].parameters(), lr=learning_rate)
+    optimizer[type_] = AdaBound(model[type_].parameters(), lr=learning_rate)
     print('%s optimizer:' % (type_))
     print(optimizer[type_], '\n')
 
