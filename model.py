@@ -15,7 +15,7 @@ class SimpleRNN(nn.Module):
             nn.Linear(input_dim, hidden_dim),
             nn.ReLU()
         )
-        self.rnn = nn.LSTM(hidden_dim, hidden_dim, num_layers,
+        self.rnn = nn.LSTM(hidden_dim, hidden_dim, num_layers, dropout=0.2,
                            bidirectional=bidirectional, batch_first=True)
         self.fc2 = nn.Sequential(
             nn.Linear(self.num_direction * hidden_dim, hidden_dim),
