@@ -4,7 +4,7 @@ from glob import glob
 
 import torch
 from torch.utils.data import DataLoader
-from torch.optim import Adam
+from torch.optim import Adamax
 
 from config import ConfigLoader
 from model import SimpleRNN
@@ -82,7 +82,7 @@ criterion = torch.nn.MSELoss()
 optimizer = {}
 
 for type_ in types:
-    optimizer[type_] = Adam(model[type_].parameters(), lr=learning_rate)
+    optimizer[type_] = Adamax(model[type_].parameters(), lr=learning_rate)
     print('%s optimizer:' % (type_))
     print(optimizer[type_], '\n')
 
@@ -93,7 +93,7 @@ for type_ in types:
     print('--- Training for %s model ---' % (type_))
     trainer = Trainer(model[type_], optimizer[type_],
                       config.get_train_config(), device=device)
-    trainer.train(dataset[type_], criterion)
+    trainer.train(dataset[type_], criterion, print_every=10)
     print()
 
 
