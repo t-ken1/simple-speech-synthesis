@@ -29,12 +29,12 @@ class Trainer(object):
                                              dim=0, descending=True)
                 sorted_x = x[index].to(self.device)
                 sorted_t = t[index].to(self.device)
-                sorted_t = sorted_t[:, :sorted_l.long().numpy()[0]]
                 sorted_l = sorted_l.to(self.device)
+                mask = sorted_t == dataset.pad_value
 
                 self.optimizer.zero_grad()
 
-                t_hat = self.model(sorted_x, sorted_l)
+                t_hat = self.model(sorted_x, sorted_l, mask)
                 loss = criterion(t_hat, sorted_t)
 
                 loss.backward()

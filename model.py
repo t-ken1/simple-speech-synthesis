@@ -23,13 +23,26 @@ class SimpleRNN(nn.Module):
             nn.Linear(hidden_dim, output_dim)
         )
 
-    def forward(self, sequence, lengths, *, hidden=None, pad_value=9999):
-        output = self.fc1(sequence)
+    def _forward(self, sequences, lengths, hidden=None, pad_value=9999):
+        T = sequences.shape[1]
+        output = self.fc1(sequences)
         output = pack_padded_sequence(output, lengths, batch_first=True)
         output, _ = self.rnn(output, hidden)
         output, _ = pad_packed_sequence(output, batch_first=True,
-                                        padding_value=pad_value)
+                                        padding_value=pad_value,
+                                        total_length=T)
         output = self.fc2(output)
 
         return output
+
+    def forward(self, sequences, lengths, mask, *,
+                hidden=None, pad_value=9999):
+        output = self._forward(sequences, lengths, hidden, pad_value)
+        output[mask] = pad_value
+
+        return output
+
+    def predict(self, sequences, lengths, *, hidden=None, pad_value=9999):
+        return self._forward(sequences, lengths, hidden, pad_value)
+    
     

@@ -37,7 +37,9 @@ class ParameterGenerator(object):
         xl = len(x)
 
         x = x.view(1, -1, x.size(-1))
-        predicted = np.round(self.duration_model(x, [xl]).cpu().data.numpy())
+        predicted = np.round(
+            self.duration_model.predict(x, [xl]).cpu().data.numpy()
+        )
         predicted[predicted <= 0] = 1
         label.set_durations(predicted)
 
@@ -58,7 +60,7 @@ class ParameterGenerator(object):
         xl = len(x)
 
         x = x.view(1, -1, x.size(-1))
-        predicted = self.acoustic_model(x, [xl]).cpu().data.numpy()
+        predicted = self.acoustic_model.predict(x, [xl]).cpu().data.numpy()
         predicted = predicted.reshape(-1, predicted.shape[-1])
 
         return predicted

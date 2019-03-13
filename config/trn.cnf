@@ -14,6 +14,7 @@ acoustic_linguistic_dim = 610
 duration_linguistic_dim = 606
 
 subphone_feat = coarse_coding
+pad_value = 9999
 
 
 [network]
