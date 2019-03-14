@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 from nnmnkwii.preprocessing import minmax, meanvar, minmax_scale, scale
 
 
-class BaseDataset(Dataset):
+class SpeechDataset(Dataset):
 
     def __init__(self, x_paths, t_paths, x_dim=262, t_dim=127,
                  max_len=5000, pad_value=9999):
@@ -16,8 +16,8 @@ class BaseDataset(Dataset):
         self.t_dim = t_dim
 
         self.x_stat, self.t_stat = {}, {}
-        self.x_stat{'min'}, self.x_stat{'max'} = self._get_x_stat()
-        self.t_stat{'mean'}, self.t_stat{'var'} = self._get_t_stat()
+        self.x_stat['min'], self.x_stat['max'] = self._get_x_stat()
+        self.t_stat['mean'], self.t_stat['var'] = self._get_t_stat()
 
         self.pad_value = pad_value
         self.max_len = max_len
