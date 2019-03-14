@@ -49,7 +49,7 @@ class SpeechDataset(Dataset):
     def __getitem__(self, idx):
         x, t = self.xs[idx], self.ts[idx]
         x = minmax_scale(x, self.x_stat['min'], self.x_stat['max'],
-                         feature_range(0.01, 0.99))
+                         feature_range=(0.01, 0.99))
         t = scale(t, self.t_stat['mean'], np.sqrt(self.t_stat['var']))
 
         pad_x = self._padding(x)
