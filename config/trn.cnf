@@ -1,0 +1,30 @@
+[analysis]
+sampling_rate = 16000
+frame_period = 5
+has_delta = True
+
+
+[feat]
+mgc_dim = 120
+lf0_dim = 3
+bap_dim = 3
+vuv_dim = 1
+
+acoustic_linguistic_dim = 610
+duration_linguistic_dim = 606
+
+subphone_feat = coarse_coding
+pad_value = 9999
+
+
+[network]
+hidden_dim = 512
+num_layers = 2
+bidirectional = True
+
+
+[train]
+num_epoch = 50
+batch_size = 20
+learning_rate = 0.001
+
