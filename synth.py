@@ -104,7 +104,7 @@ for type_ in types:
 print('--- Synthesize ---')
 
 synth_labels = glob(join(synth_label_dir, '*.lab'))
-parm_var = get_var(dataset['acoustic'])
+parm_var = dataset['acoustic'].t_stat['var']
 
 param_generator = ParameterGenerator(model['duration'], model['acoustic'],
                                      question_file, config.get_feature_config(),
