@@ -34,14 +34,22 @@ class Trainer(object):
 
                 self.optimizer.zero_grad()
 
-                t_hat = self.model(sorted_x, sorted_l, mask)
+                t_hat = self.model(sorted_x, sorted_l, mask,
+                                   pad_value=dataset.pad_value)
+                
+                # calculate the loss excluding the padded part.
+                t_hat = t_hat.view(-1)
+                t_hat = t_hat[t_hat != dataset.pad_value]
+                sorted_t = sorted_t.view(-1)
+                sorted_t = sorted_t[sorted_t != dataset.pad_value]
+                
                 loss = criterion(t_hat, sorted_t)
-
-                loss.backward()
-                self.optimizer.step()
 
                 running_loss += loss.item()
                 loss_count += 1
+
+                loss.backward()
+                self.optimizer.step()
 
             if epoch % print_every == 0:
                 lap_time = time.time() - start_time
