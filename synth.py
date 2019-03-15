@@ -4,7 +4,7 @@ from glob import glob
 
 import torch
 from torch.utils.data import DataLoader
-from adabound import AdaBound
+from torch.optim import Adam
 
 from config import ConfigLoader
 from model import SimpleRNN
@@ -48,9 +48,11 @@ for type_ in types:
     x_dim = config.get_feature_config().get_linguistic_dim(type_)
     t_dim = config.get_feature_config().get_parm_dim(type_)
     max_len = get_max_length(x_paths[type_], x_dim)
+    pad_value = config.get_feature_config().pad_value
     
     dataset[type_] = SpeechDataset(x_paths[type_], t_paths[type_],
-                                   x_dim=x_dim, t_dim=t_dim, max_len=max_len)
+                                   x_dim=x_dim, t_dim=t_dim,
+                                   max_len=max_len, pad_value=pad_value)
     batch_size = config.get_train_config().batch_size
     loader[type_] = DataLoader(dataset[type_], batch_size=batch_size,
                                shuffle=True)
@@ -82,7 +84,7 @@ criterion = torch.nn.MSELoss()
 optimizer = {}
 
 for type_ in types:
-    optimizer[type_] = AdaBound(model[type_].parameters(), lr=learning_rate)
+    optimizer[type_] = Adam(model[type_].parameters(), lr=learning_rate)
     print('%s optimizer:' % (type_))
     print(optimizer[type_], '\n')
 
@@ -104,13 +106,13 @@ print('--- Synthesize ---')
 synth_labels = glob(join(synth_label_dir, '*.lab'))
 parm_var = get_var(dataset['acoustic'])
 
-parameter_generator = ParameterGenerator(model['duration'],
-                                         model['acoustic'],
-                                         question_file,
-                                         config.get_feature_config(),
-                                         device=device)
+param_generator = ParameterGenerator(model['duration'], model['acoustic'],
+                                     question_file, config.get_feature_config(),
+                                     duration_dataset=dataset['duration'],
+                                     acoustic_dataset=dataset['acoustic'],
+                                     device=device)
 wave_generator = WaveGenerator(synth_labels, out_dir,
-                               parameter_generator,
+                               param_generator,
                                config.get_feature_config(),
                                config.get_analysis_config())
 wave_generator.generate(parm_var)
